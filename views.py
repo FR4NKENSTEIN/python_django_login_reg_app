@@ -16,7 +16,7 @@ def success(request):
         print('##############################   SUCCESS!   ##############################')
         return render(request, 'other_app/.html', context)
     except:
-        return redirect('/login')
+        return redirect('/')
 
 def register(request):
     print('##############################   ABOUT TO REGISTER A USER...   ##############################')
@@ -27,7 +27,7 @@ def register(request):
         for key, value in errors.items():
             messages.error(request, value)
         print('##############################   REGISTRATION FAILED   ##############################')
-        return redirect('/login')
+        return redirect('/')
     #Else there are no errors, create the new user
     else:
         password = request.POST['password_reg']
@@ -50,7 +50,7 @@ def login(request):
         for key, value in errors.items():
             messages.error(request, value)
         print('##############################   LOGIN FAILED   ##############################')
-        return redirect('/login')
+        return redirect('/')
     else:
         user = User.objects.get(email=request.POST['email_log'])
         request.session['userid'] = user.id
@@ -61,4 +61,4 @@ def login(request):
 def logout(request):
     request.session.clear()
     print('##############################   LOGGED OUT   ##############################')
-    return redirect('/login')
+    return redirect('/')
